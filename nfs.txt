@@ -1,0 +1,8 @@
+yum -y install nfs-utils
+systemctl start nfs && systemctl enable nfs && systemctl status nfs
+systemctl start rpcbind && systemctl enable rpcbind && systemctl status rpcbind
+mkdir /nfs
+vim /etc/exports
+/nfs 10.156.122.0/24(rw,sync)
+
+systemctl restart rpcbind && systemctl restart nfs

@@ -1,0 +1,15 @@
+#解决复制出来脚本win和linux的问题
+sed -i 's/\r$//' build.sh
+#查看创建pod进度
+watch kubectl get pod -n kube-system -o wide
+#查看初始化状态
+kubectl get nodes -o wide
+# 只在 master 节点执行
+#获得 join命令参数
+kubeadm token create --print-join-command
+
+#只在master上执行
+#安装kuboard
+kubectl apply -f https://kuboard.cn/install-script/kuboard.yaml
+#获取Token
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kuboard-user | awk '{print $1}')
